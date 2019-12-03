@@ -1,4 +1,6 @@
-use crate::helpers;
+use std::fs::File;
+#[allow(unused_imports)]
+use std::io::{self, BufRead};
 
 fn calculate_fuel(mass: i32) -> i32 {
     let mass_by_three = mass as f64 / 3 as f64;
@@ -17,21 +19,17 @@ fn calculate_recursive_fuel(mass: i32) -> i32 {
     }
 }
 
-pub fn solution(star: i8) -> i32 {
-    if let Ok(lines) = helpers::read_lines("src/day01/input.txt") {
-        let mut total_fuel = 0i32;
-        for line in lines {
-            if let Ok(number) = line {
-                match star {
-                    1 => total_fuel += calculate_fuel(number.parse::<i32>().unwrap()),
-                    2 => total_fuel += calculate_recursive_fuel(number.parse::<i32>().unwrap()),
-                    _ => ()
-                }
+pub fn solution(star: i8, lines: io::Lines<io::BufReader<File>>) -> i32 {
+    let mut total_fuel = 0i32;
+    for line in lines {
+        if let Ok(number) = line {
+            match star {
+                1 => total_fuel += calculate_fuel(number.parse::<i32>().unwrap()),
+                2 => total_fuel += calculate_recursive_fuel(number.parse::<i32>().unwrap()),
+                _ => ()
             }
         }
-
-        total_fuel
-    } else {
-        0i32
     }
+
+    total_fuel
 }
