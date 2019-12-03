@@ -3,6 +3,7 @@ use std::fs::File;
 use std::io::prelude::*;
 use std::path::Path;
 use std::io::{self, BufRead};
+use std::fmt;
 
 pub fn read_lines(name: &str) -> io::Result<io::Lines<io::BufReader<File>>> {
     let path = Path::new(name);
@@ -43,4 +44,20 @@ pub fn read_file(name: &str) -> String {
         }
         Ok(_) => result
     }
+}
+
+#[derive(Copy, Clone)]
+pub struct Point {
+    pub x: i32,
+    pub y: i32
+}
+
+impl fmt::Display for Point {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "({}, {})", self.x, self.y)
+    }
+}
+
+pub fn manhattan_distance(origin: Point, destination: Point) -> i32 {
+    (origin.x - destination.x).abs() + (origin.y - destination.y).abs()
 }

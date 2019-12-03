@@ -2,6 +2,7 @@ mod helpers;
 
 mod day01;
 mod day02;
+mod day03;
 
 fn main() {
     // Day 01
@@ -24,4 +25,12 @@ fn main() {
 
     print!("Day02 - Solution 1: {}", day02::solution(1i8, &input));
     println!(" - Solution 2: {}", day02::solution(2i8, &input));
+
+    // Day 03
+
+    if let Ok(lines) = helpers::read_lines("src/day03/input.txt") {
+        print!("Day03 - Solution 1: {}", day03::solution(1i8, lines));
+    } else {
+        panic!("Could not read file for day 3!");
+    }
 }
